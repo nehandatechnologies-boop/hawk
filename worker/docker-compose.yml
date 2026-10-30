@@ -1,0 +1,15 @@
+services:
+  worker:
+    build: .
+    restart: unless-stopped
+    env_file: .env
+    # Needed for ONVIF WS-Discovery and RTSP over UDP inside the LAN.
+    network_mode: host
+    volumes:
+      - ./models:/models
+      - ./cache:/root/.insightface
+    logging:
+      driver: json-file
+      options:
+        max-size: "50m"
+        max-file: "5"
